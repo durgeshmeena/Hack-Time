@@ -3,11 +3,7 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import Body, Message, Redirect, MessagingResponse
 import json
 from decouple import config
-import asyncio
 
-# from bs4 import BeautifulSoup
-# import regex as re 
-import numpy as np
 import pandas as pd 
 
 from update_mlh_data import mlh_update
@@ -20,17 +16,7 @@ session = {'Login':False, 'Loaded':True, 'Catagory':None, 'Stage':0}
 
 @app.route('/')
 def index():
-    return "Server Started"
-
-def write(data):
-    session['Loaded'] = True
-    with open("data.json", "w") as database:
-        json.dump(data, database) 
-
-def go():
-    data = '' # get_user(config('USER'), config('PASSWORD'))
-    return  write(data)     
-
+    return "Server Started" 
 
 @app.route( '/bot', methods=['POST']) 
 def bot():
