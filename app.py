@@ -5,8 +5,8 @@ import json
 from decouple import config
 import asyncio
 
-from bs4 import BeautifulSoup
-import regex as re 
+# from bs4 import BeautifulSoup
+# import regex as re 
 import numpy as np
 import pandas as pd 
 
@@ -16,7 +16,7 @@ from update_hackerearth_data import hackerearth_update
 app = Flask(__name__)
 app.secret_key = config('APP_SECRET')
 
-session = {'Login':False, 'State':0, 'Loaded':True, 'Catagory':None, 'Stage':0}
+session = {'Login':False, 'Loaded':True, 'Catagory':None, 'Stage':0}
 
 @app.route('/')
 def index():
@@ -79,7 +79,9 @@ def bot():
             elif 'cp' in incoming_msg:
                 df = pd.read_csv('data_cp.csv')
                 session['Catagory'] = 'CP'
-                session['Stage'] = 
+                # session['Stage'] 
+                i= session['Stage']
+                session['Stage']=session['Stage']+5
                 while i<session['Stage']:
                     msg.body('Category: '+ '*'+ df.iloc[i, :]['Category'] +'*'+'\n' +'Name: ' + '*'+df.iloc[i, :]['Name']  +'*'+'\n' +      'Date/Time: ' +'*'+df.iloc[i, :]['Date/Time']   +'*'+'\n' + 'Length: ' +'*'+df.iloc[i, :]['Length']     +'*'+'\n' +  'Link: '+   '*'+df.iloc[i, :]['Link']      +'*'+'\n' +  'Location: ' + '*'+df.iloc[i, :]['Location'] +'*'+'\n' +       'Type: ' + '*'+df.iloc[i, :]['Type']  + '*'+'\n'  )
                 responded = True

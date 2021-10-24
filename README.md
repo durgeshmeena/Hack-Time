@@ -28,10 +28,7 @@ In this Project we build a chatbot for WhatsApp using the Twilio API for WhatsAp
   
   In our case we are handling POST request at http://localhost:5000/bot and our ngrok url is https://24df-2401-4900-36a4-a53b-1068-c2c9-b470-8e64.ngrok.io so our final url      will be https://24df-2401-4900-36a4-a53b-1068-c2c9-b470-8e64.ngrok.io/bot
 
-  ## Testing the Chatbot
-  
 
-  [![image](https://user-images.githubusercontent.com/58581435/136696066-a88ed16e-ce7b-4257-a103-d1b9286752d1.png)](https://www.youtube.com/watch?v=ByBL9cCTsM0)
   
   
   
