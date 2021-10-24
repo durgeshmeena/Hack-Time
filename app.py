@@ -16,7 +16,7 @@ from update_hackerearth_data import hackerearth_update
 app = Flask(__name__)
 app.secret_key = config('APP_SECRET')
 
-session = {'Login':False, 'State':0, 'Loaded':False}
+session = {'Login':False, 'State':0, 'Loaded':True, 'Catagory':None, 'Stage':0}
 
 @app.route('/')
 def index():
@@ -40,21 +40,13 @@ def bot():
     responded = False
 
     # handling session 
+            # msg.body('Choose one of the following to get imformation\n*1.* *MLH*- MLH Hackathons \n*2* *CP*- Contest \n*i.* *Hacks*- Hackathons \n*4.* *Close*- to end your session. \n*5.* *UpdateMLH*- To refresh mlh hachathons data.  \n*6.* *UpdateCP*- To refresh cp contest data. \n*7.* *UpdateHacks*- To refresh hachathons data. \n*8*  *Home*- Go back to home')
+
 
     if session['Login']:
-        if 'mlh' in incoming_msg:
-            mlh_update()
-            msg.body('data updated')
-            responded = True   
-
-        if 'cp' in incoming_msg:
-            cp_update()
-            msg.body('data updated')
-            responded = True     
-
         if '?' in incoming_msg:
             if session['Loaded']:
-                msg.body('your data sucessfully loaded. \nReply with following to get imformation\n*1.* *General*- general information \n*2* *User*- user info \n*3.* *Balance*- balance Inquiry \n*4.* *Logout*- to end your session.')
+                msg.body('Choose one of the following to get imformation\n*1.* *Hackathon*- for Hackathons \n*2* *CP*- Contest')
                 responded = True  
             else:
                 msg.body('still Loading!. Please wait for few seconds')
@@ -62,15 +54,13 @@ def bot():
 
         if not session['Loaded']: 
 
-            if 'start' in incoming_msg:
-                go()
+            if 'mlh' or 'cp' or 'hacks' or 'updatemlh' or 'updatecp' or 'updatehacks' in incoming_msg:
                 msg.body("*Loading data*\nthis may take some time. Please reply with *?* to know status of your information")
                 responded = True
     
 
             elif 'logout' in incoming_msg:
                 session['Login'] = False
-                session['Loaded'] = False
                 with open("data.json", "w") as database:
                     json.dump({}, database) 
                 msg.body('session ended sucessfully! \n*Thank you*')
@@ -81,61 +71,43 @@ def bot():
                 
    
         if session['Loaded']:
-            if 'general' in incoming_msg:
-                val = ""
-                with open("data.json", "r") as database:
-                    json_object = json.load(database)
-                    val = json_object["1"]
-                msg_str1 = '*Name:* '+val['Name']+'\n'+'*'+val['Account Status']+'*'+'\n'+'*VC_NO.*- '+val['VC_NO.']+'\n'+'*Model*- '+val['Model']+'\n'
-                    
-                msg.body(msg_str1)
+            if 'hackathon' in incoming_msg:
+            
+                msg.body('choose from following plateform \n1. *M*- MLH \n2. *H*- Hackerearth \n')
                 responded = True
 
-            elif 'balance' in incoming_msg:
-                val = ""
-                with open("data.json", "r") as database:
-                    json_object = json.load(database)
-                    val = json_object["2"]
-
-                msg_str2 = '*Acount balance till now:-* '+val['Balance_Today'] +'\n'+'*Last Recharge Amount*- ' +val['Last Recharge Amount']+'\n'+ '*Last Recharge Date*- '+val['Last Recharge Date']+'\n'+'*Next Recharge Date*- '+val['Next Recharge Date']+'\n' +'*Full Month Recharge*- '+ val['Full Month Recharge'] + '\n'
-                  
-                msg.body(msg_str2)
+            elif 'cp' in incoming_msg:
+                df = pd.read_csv('data_cp.csv')
+                session['Catagory'] = 'CP'
+                session['Stage'] = 
+                while i<session['Stage']:
+                    msg.body('Category: '+ '*'+ df.iloc[i, :]['Category'] +'*'+'\n' +'Name: ' + '*'+df.iloc[i, :]['Name']  +'*'+'\n' +      'Date/Time: ' +'*'+df.iloc[i, :]['Date/Time']   +'*'+'\n' + 'Length: ' +'*'+df.iloc[i, :]['Length']     +'*'+'\n' +  'Link: '+   '*'+df.iloc[i, :]['Link']      +'*'+'\n' +  'Location: ' + '*'+df.iloc[i, :]['Location'] +'*'+'\n' +       'Type: ' + '*'+df.iloc[i, :]['Type']  + '*'+'\n'  )
                 responded = True
 
-            elif 'user' in incoming_msg:
-                val = ""
-                with open("data.json", "r") as database:
-                    json_object = json.load(database)
-                    val = json_object["3"]
-
-                msg_str3 = "*Name*- "+ val['Name'] + '\n' + '*Registered Telephone Number*- '+ val['Registered Telephone Number'] + '\n' + '*Registered Email ID*- ' + val['Registered Email ID'] + '\n' + '*Address*- ' + val['Address'] + '\n'
-
-                msg.body(msg_str3)
+            elif 'home' in incoming_msg:
+                
                 responded = True
 
             elif 'logout' in incoming_msg:
                 session['Login'] = False
-                session['Loaded'] = False
-                with open("data.json", "w") as database:
-                    json.dump({}, database) 
                 msg.body('session ended sucessfully! \n*Thank you*')
                 responded = True
 
 
             else:
-                msg.body('Type *?* to know your command \n Type *START* to get your details or to send refresh command')     
+                msg.body('Type *?* to know your command')     
                 responded = True
             if not responded:
                 msg.body('an Error occured! again Type *START* to start bot')  
          
     
     else:
-        if "yes" in incoming_msg:
+        if "show" in incoming_msg:
             session['Login'] = True
-            msg.body("your session began \ntype *START*- To getting your information") 
-            responded = True
+            msg.body('Choose one of the following to get imformation\n*1.* *Hackathon*- for Hackathons \n*2* *CP*- Contest')
+            responded = True 
         else:
-            msg.body('*your session is not initialised* \nif you want to start your session reply with *YES*')
+            msg.body('*Welcome user* \nwe are one step solution for all hackathons and contest \ntype *Show* to show available options')
             responded = True             
 
     return str(resp)
