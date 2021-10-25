@@ -1,19 +1,12 @@
-from datetime import time
-import re
-from typing import Tuple
 from flask import Flask, request, session
-from twilio.twiml.messaging_response import Body, Message, Redirect, MessagingResponse
-from decouple import config
-import time
+from twilio.twiml.messaging_response import MessagingResponse
 import pandas as pd 
 
 from update_mlh_data import mlh_update
 from update_cp_data import cp_update
 from update_hackerearth_data import hackerearth_update
 app = Flask(__name__)
-app.secret_key = config('APP_SECRET')
-    # session = {'login':False, 'loaded':True, 'catagory':None, 'stage':0, 'CP':{ 'catagory':False, 'stage':0 }, 'MLH':{ 'catagory':False, 'stage':0 }, 'Hack':{ 'catagory':False, 'stage':0 }, }
-
+app.secret_key = b'bsaKMH/12345BV$%^&*(BVBHFKEMBGRD?><mU'
 
 @app.route('/')
 def index():
@@ -177,5 +170,3 @@ def bot():
 
     return str(response)
 
-if __name__ == "__main__":
-    app.run(debug=True)

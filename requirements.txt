@@ -1,0 +1,7 @@
+python
+Flask==2.0.1
+Flask-Session==0.4.0
+gunicorn
+pandas
+twilio==7.1.0
+Werkzeug==2.0.1
