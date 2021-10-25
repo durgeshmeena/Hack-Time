@@ -137,7 +137,7 @@ def bot():
                     df = pd.read_csv('data_mlh.csv')
                     i = session['mlh']
                     session['mlh'] = session['mlh']+5
-                    while i<session['MLH']:
+                    while i<session['mlh']:
                         msg = response.message('Category: '+ '*'+ df.iloc[i, :]['Category'] +'*'+'\n' +'Name: ' + '*'+df.iloc[i, :]['Name']  +'*'+'\n' +      'Date/Time: ' +'*'+df.iloc[i, :]['Date/Time']   +'*'+'\n' + 'Length: ' +'*'+df.iloc[i, :]['Length']     +'*'+'\n' +  'Link: '+   '*'+df.iloc[i, :]['Link']      +'*'+'\n' +  'Location: ' + '*'+df.iloc[i, :]['Location'] +'*'+'\n' +       'Type: ' + '*'+df.iloc[i, :]['Type']  + '*'+'\n'  )
                         msg.media(df.iloc[i,:]['Image'])
                         i+=1
