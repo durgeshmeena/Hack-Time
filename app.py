@@ -1,4 +1,5 @@
-from flask import Flask, request, session
+import os
+from flask import Flask, request, session, render_template, send_from_directory
 from twilio.twiml.messaging_response import MessagingResponse
 import pandas as pd 
 
@@ -10,7 +11,11 @@ app.secret_key = b'bsaKMH/12345BV$%^&*(BVBHFKEMBGRD?><mU'
 
 @app.route('/')
 def index():
-    return "Server Started" 
+    return render_template("base.html") 
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route( '/bot', methods=['POST']) 
 def bot():
