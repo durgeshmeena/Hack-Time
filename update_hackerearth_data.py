@@ -29,9 +29,15 @@ def hackerearth_update():
             else:
                 status.append(event.find('div', class_='date').text)    
 
-            company.append(event.find('div' , class_='company-details').text.split('\n')[1])
-            registration.append(event.find('div', class_="registrations").text.split('\n')[1])
-            link.append( event.find('a', class_="challenge-card-link")['href'] )
+            company.append( ' '.join(event.find('div' , class_='company-details').text.split('\n')[1].split(' ')[1:]) )
+            regs = event.find('div', class_="registrations").text.split('\n')[1]
+            if regs and regs[0]== '':
+                regs = regs.split(' ')[1]
+            registration.append(regs)
+            lnk = event.find('a', class_="challenge-card-link")['href']
+            if 'http' not in lnk:
+                lnk = 'https://www.hackerearth.com'+lnk
+            link.append( lnk )
             image.append( event.find('div', class_="event-image")['style'].split("'")[1] )
 
 
@@ -42,7 +48,7 @@ def hackerearth_update():
         'Type':challenge, 
         'Status':status, 
         'Company':company, 
-        'Registration':registration, 
+        'Registrations/Prize':registration, 
         'Link':link, 
         'image':image
     }
