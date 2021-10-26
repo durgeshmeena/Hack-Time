@@ -1,4 +1,4 @@
-# **Innovate-Hackthon-LightDev**
+# **HackThisFall2.0-LightDev**
 
  ## Build a WhatsApp Chatbot With Python, Flask and Twilio
 A chatbot is a software application that is able to conduct a conversation with a human user.
