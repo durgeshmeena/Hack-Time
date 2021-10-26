@@ -4,3 +4,4 @@ pandas
 twilio==7.1.0
 Werkzeug==2.0.1
 beautifulsoup4==4.6.3
+decouple

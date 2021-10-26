@@ -2,12 +2,12 @@ import os
 from flask import Flask, request, session, render_template, send_from_directory
 from twilio.twiml.messaging_response import MessagingResponse
 import pandas as pd 
-
+from decouple import config
 from update_mlh_data import mlh_update
 from update_cp_data import cp_update
 from update_hackerearth_data import hackerearth_update
 app = Flask(__name__)
-app.secret_key = b'bsaKMH/12345BV$%^&*(BVBHFKEMBGRD?><mU'
+app.secret_key = config('APP_SECRET')
 
 @app.route('/')
 def index():
