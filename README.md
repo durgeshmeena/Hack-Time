@@ -31,7 +31,9 @@ Build using the Twilio API for WhatsApp and the Flask framework for Python.
   In our case we are handling POST request at http://localhost:5000/bot and our ngrok url is https://24df-2401-4900-36a4-a53b-1068-c2c9-b470-8e64.ngrok.io so our final url      will be https://24df-2401-4900-36a4-a53b-1068-c2c9-b470-8e64.ngrok.io/bot
 
 
-  
+  <br><br>
+  ## Chat
+  ![image](https://user-images.githubusercontent.com/58581435/185737207-281dd4e2-610d-4013-81b2-25c45c7133bb.png)
   
   
   ## Developed by
